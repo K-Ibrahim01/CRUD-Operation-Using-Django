@@ -1,0 +1,62 @@
+{% extends "base.html" %} {% block title %} Inserting form {% endblock %}
+
+{%block body %}
+<center class="center">
+    <h2>Form To Save Data in Database!</h2>
+</center>
+<form action="{% url 'submit_form' %}" method="post">
+    {% csrf_token %}
+    <center>
+        <label for="fullname">Enter Full Name:</label>
+        <input type="text" name="Name" class="input" />
+        <label for="email">Enter your Email:</label>
+        <input type="text" name="email" class="input" />
+        <label for="password">Enter your Password:</label>
+        <input type="text" name="pass" class="input" />
+        <input type="submit" class="btn btn-danger" />
+    </center>
+</form>
+
+<center>
+    <h2 class="height">Want to delete Data !</h2>
+    <form class="delform" action="{% url 'delete_data' %}" method="post">
+        {% csrf_token %}
+        <label for="full Name"> Enter the name to delete data:</label>
+        <input type="text" name="delname" class="input" />
+        <button type="submit" class="btn btn-primary">Delete</button>
+    </form>
+</center>
+<center>
+    <h2 class="height">Want to Modify Existing Data in Database!</h2>
+    <form class="delform" action="{% url 'modify_data' %}" method="post">
+        {% csrf_token %}
+        <label for="full Name"> Enter the name to modify data:</label>
+        <input type="text" name="moddata" class="input" />
+        <label for="full Name"> Enter New Email:</label>
+        <input type="text" name="newemail" class="input" />
+        <label for="full Name"> Enter New Password:</label>
+        <input type="text" name="newpassword" class="input" />
+        <button type="submit" class="btn btn-dark">New Values</button>
+    </form>
+    <form action="{% url 'show_all' %}" method="post">
+        {% csrf_token %}
+        <h2 class="height">Want to see our Members</h2>
+        <table id="table">
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+
+            {% for person in showpeople %}
+            <tr>
+                <td>{{person.Name}}</td>
+                <td>{{person.Email}}</td>
+                <td>{{person.Password}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br />
+        <button type="submit" class="btn btn-danger">Show Data</button>
+    </form>
+</center>
+
+{% endblock %}
